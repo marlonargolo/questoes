@@ -1,0 +1,9 @@
+# Baixa PDFs de provas e gabaritos de páginas públicas de listagem.
+# Use páginas oficiais das bancas/órgãos ou repositórios que permitam download.
+paginas:
+  - https://exemplo-banca.org.br/concursos/encerrados/
+seletor_proxima: "a.proxima"         # link para a próxima página (opcional)
+padrao_link: "(prova|gabarito).*\\.pdf$"
+destino: provas
+intervalo: 3                          # segundos entre requisições
+max_paginas: 100

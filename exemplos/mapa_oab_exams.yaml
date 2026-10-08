@@ -1,0 +1,14 @@
+# Mapa para o dataset aberto "eduagarcia/oab_exams" (Hugging Face) — provas da OAB aplicadas pela FGV.
+# Baixe o .parquet/.jsonl do dataset e rode:
+#   python -m questoes tabela oab.parquet --mapa exemplos/mapa_oab_exams.yaml -o dados/oab.jsonl
+# Confira os nomes dos campos na página do dataset antes de rodar; ajuste se mudarem.
+fixos:
+  Banca: FGV
+  Orgao: OAB
+  Disciplina: Direito
+campos:
+  Ano: exam_year
+  Enunciado: question
+  Gabarito: answerKey
+alternativas: choices.text
+ignorar_se_verdadeiro: nullified

@@ -1,0 +1,18 @@
+# Raspagem de HTML por seletores CSS. Só use em sites cujos termos permitam.
+paginas:
+  - https://exemplo.org/questoes?pagina=1
+seletor_proxima: "a[rel=next]"
+intervalo: 3
+max_paginas: 200
+fixos: {}                       # valores fixos para colunas ausentes na página
+seletores:
+  questao: "div.questao"        # um nó por questão; os demais são relativos a ele
+  Banca: ".banca"
+  Orgao: ".orgao"
+  Ano: ".ano"
+  Disciplina: ".disciplina"
+  Assunto: ".assunto"
+  Enunciado: ".enunciado"
+  alternativas: "ul.alternativas > li"
+  Gabarito: ".gabarito"
+  Comentario_Professor: ""

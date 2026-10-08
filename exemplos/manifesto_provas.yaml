@@ -1,0 +1,27 @@
+# Lista de provas oficiais (PDF) + gabaritos definitivos.
+# Caminhos relativos a este arquivo. Valores em "padrao" valem para todas as provas.
+padrao:
+  colunas: 2              # a maioria dos cadernos é diagramada em 2 colunas
+  paginas_ignorar: [1]    # capa/instruções
+
+provas:
+  - prova: ../provas/cebraspe_pf_2021_agente.pdf
+    gabarito: ../provas/cebraspe_pf_2021_agente_gabarito_definitivo.pdf
+    banca: Cebraspe
+    orgao: Polícia Federal
+    ano: 2021
+    tipo: certo_errado
+    disciplinas:
+      - {de: 1, ate: 13, disciplina: Língua Portuguesa}
+      - {de: 14, ate: 25, disciplina: Direito Administrativo}
+      - {de: 26, ate: 40, disciplina: Direito Constitucional}
+
+  - prova: ../provas/fgv_tce_2023_auditor.pdf
+    gabarito_texto: "1 A 2 C 3 E 4 B 5 D"   # alternativa a um PDF de gabarito
+    banca: FGV
+    orgao: TCE-XX
+    ano: 2023
+    tipo: multipla_escolha
+    numero_alternativas: 5
+    disciplinas:
+      - {de: 1, ate: 5, disciplina: Língua Portuguesa}
