@@ -34,9 +34,10 @@ def extrair_pagina(conteudo):
     orgao = re.sub(r"^(?:[IVXLC]+\s+)?Concurso Público\s+(?:para\s+(?:o\s+provimento\s+de\s+cargos\s+de\s+.*?\s+d[aoe]s?\s+)?"
                    r"(?:o|a|os|as)?\s*)?", "", orgao, flags=re.I).strip()
     cadernos, gabaritos = [], []
-    for par in re.finditer(r'<div id="paragraph-\d+".*?(?=<div id="paragraph-\d+"|\Z)', conteudo, re.S):
+    padrao_bloco = r'(?:<div id="paragraph-\d+"|<tr[ >]).*?(?=<div id="paragraph-\d+"|<tr[ >]|\Z)'
+    for par in re.finditer(padrao_bloco, conteudo, re.S):
         bloco = par.group(0)
-        data = re.search(r'datetime="(\d{4})-', bloco)
+        data = re.search(r'datetime="(\d{4})-', bloco) or re.search(r"<td>\s*\d{2}/\d{2}/(\d{4})\s*</td>", bloco)
         ano = int(data.group(1)) if data else None
         secao, niveis = "", {}
         for p in re.finditer(r"<p([^>]*)>(.*?)</p>", bloco, re.S):
@@ -49,6 +50,7 @@ def extrair_pagina(conteudo):
                 cargo = re.sub(r"^(Curso|Cargo|Emprego|Especialidade)\s*:\s*", "", cargo)
                 for url, rot in links:
                     rot = _texto(rot)
+                    url = url if url.startswith("http") else "https://conhecimento.fgv.br" + url
                     if re.fullmatch(r"(?i)tipo\s*0?1", rot) and re.search(r"objetiva", secao, re.I):
                         cadernos.append((cargo, url, ano))
                     elif re.search(r"(?i)gabarito.*definitivo", rot) and not re.search(r"(?i)discursiv|preliminar|reaplica", rot):
@@ -57,7 +59,19 @@ def extrair_pagina(conteudo):
                 niveis = {n: v for n, v in niveis.items() if n < nivel}
                 niveis[nivel] = txt
             elif txt and not nivel:
-                secao, niveis = txt, {}
+                if re.search(r"(?i)\bprovas?\b", txt):
+                    secao, niveis = txt, {}
+                else:  # título intermediário sem recuo ("Nível Superior"): não muda a seção
+                    niveis = {0: txt}
+    # gabaritos também aparecem como link direto em células de tabela (páginas antigas)
+    vistos = {u for _, u, _ in gabaritos}
+    for m in re.finditer(r'<a[^>]+href="([^"]+\.pdf)"[^>]*>(.*?)</a>', conteudo, re.S):
+        rot, url = _texto(m.group(2)), m.group(1)
+        url = url if url.startswith("http") else "https://conhecimento.fgv.br" + url
+        if (url not in vistos and re.search(r"(?i)gabarito.*(definitivo|final)", rot)
+                and not re.search(r"(?i)discursiv|preliminar|reaplica", rot)):
+            gabaritos.append((rot, url, None))
+            vistos.add(url)
     return orgao, cadernos, gabaritos
 
 
