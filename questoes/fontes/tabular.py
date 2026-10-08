@@ -50,10 +50,11 @@ def ler_registros(caminho):
         yield from (dados if isinstance(dados, list) else dados.get("data", []))
     elif ext in (".csv", ".tsv"):
         with open(caminho, encoding="utf-8-sig", newline="") as f:
-            amostra = f.read(4096)
+            cabecalho = f.readline()
             f.seek(0)
-            dialeto = csv.Sniffer().sniff(amostra, delimiters=";,\t|")
-            yield from csv.DictReader(f, dialect=dialeto)
+            # o cabeçalho define o separador (o Sniffer erra com campos de várias linhas)
+            delim = max(";,\t|", key=cabecalho.count)
+            yield from csv.DictReader(f, delimiter=delim)
     elif ext == ".xlsx":
         from openpyxl import load_workbook
 

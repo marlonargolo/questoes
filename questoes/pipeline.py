@@ -66,7 +66,31 @@ def atribuir_disciplinas(brutos, log=print):
             previstas += 1
     log(f"{previstas} disciplinas previstas pelo classificador")
     log(f"{ajustar_por_cargo(brutos)} disciplinas ajustadas pela área do cargo (conhecimentos específicos)")
+    log(f"{ajustar_por_palavras(brutos)} disciplinas ajustadas por palavras-chave (previsões genéricas ou fracas)")
     return brutos
+
+
+def ajustar_por_palavras(brutos, minimo=6):
+    """Previsão genérica/fraca (ou Português sem indício de Português) -> área indicada com força pelas palavras-chave."""
+    from .classificador import GENERICAS_PREVISTAS
+    from .disciplinas import pontuar
+
+    n = 0
+    for d in brutos:
+        if "_disc_prob" not in d:
+            continue
+        atual = d["Disciplina"]
+        fraca = atual in GENERICAS_PREVISTAS or d["_disc_prob"] < 0.4
+        texto = d.get("Enunciado", "")[-1200:] + " " + " ".join(d.get(f"Alternativa_{l}", "") for l in "ABCDE")
+        pts = pontuar(texto)
+        if not pts:
+            continue
+        melhor, v = pts.most_common(1)[0]
+        portugues_sem_indicio = atual == "Língua Portuguesa" and pts.get("Língua Portuguesa", 0) == 0
+        if melhor != atual and v >= minimo and (fraca or portugues_sem_indicio) and v >= 2 * pts.get(atual, 0):
+            d["Disciplina"] = melhor
+            n += 1
+    return n
 
 
 _CARGOS_CEBRASPE = {}
