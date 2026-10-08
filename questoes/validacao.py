@@ -43,6 +43,8 @@ def erros_questao(q: Questao) -> list[str]:
     for l, a in zip(LETRAS, alts):
         if a and _PREFIXO.match(a):
             e.append(f"letra misturada na Alternativa_{l}")
+    if re.search(r"\bJUSTIFICATIVA\b", q.Enunciado):
+        e.append("justificativa da banca misturada ao enunciado")
     if len(q.Enunciado) < 15:
         e.append("enunciado curto demais")
     return e

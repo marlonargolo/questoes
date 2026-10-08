@@ -28,15 +28,55 @@ def ler_jsonl(caminho):
                 yield Questao(**{c: str(d.get(c, "") or "") for c in COLUNAS})
 
 
-def consolidar(entradas, saidas, rejeitadas=None, relatorio_path=None, classificar_assunto=True, bom=False):
-    validas, ruins = [], []
+def ler_brutos(entradas):
     for entrada in entradas:
-        for q in ler_jsonl(entrada):
-            q = limpar_questao(q)
-            if classificar_assunto and not q.Assunto:
-                q.Assunto = classificar(q.Disciplina, q.Enunciado, [getattr(q, f"Alternativa_{l}") for l in LETRAS])
-            err = erros_questao(q)
-            (ruins.append((q, err)) if err else validas.append(q))
+        with open(entrada, encoding="utf-8") as f:
+            for linha in f:
+                if linha.strip():
+                    yield json.loads(linha)
+
+
+def atribuir_disciplinas(brutos, log=print):
+    """Normaliza disciplinas rotuladas e prevê as faltantes com o classificador treinado."""
+    from collections import OrderedDict
+
+    from .classificador import Classificador, canonica
+
+    for d in brutos:
+        d["Disciplina"] = canonica(d.get("Disciplina", ""))
+    clf = Classificador()
+    rotulos = {d["Disciplina"] for d in brutos if d["Disciplina"]}
+    if len(rotulos) < 2 or sum(1 for d in brutos if d["Disciplina"]) < 2 * clf.min_exemplos:
+        log("poucos exemplos rotulados: classificador de disciplina não treinado")
+        return brutos
+    n, classes = clf.treinar(brutos)
+    log(f"classificador treinado com {n} questões rotuladas, {len(clf.modelo.classes_)} disciplinas")
+    cadernos = OrderedDict()
+    for i, d in enumerate(brutos):
+        if not d["Disciplina"]:
+            cadernos.setdefault(d.get("_fonte", "?"), []).append(i)
+    previstas = 0
+    for idxs in cadernos.values():
+        for i, (disc, prob) in zip(idxs, clf.prever_caderno([brutos[i] for i in idxs])):
+            brutos[i]["Disciplina"] = disc
+            brutos[i]["_disc_prob"] = round(prob, 3)
+            previstas += 1
+    log(f"{previstas} disciplinas previstas pelo classificador")
+    return brutos
+
+
+def consolidar(entradas, saidas, rejeitadas=None, relatorio_path=None, classificar_assunto=True, bom=False,
+               prever_disciplina=True):
+    validas, ruins = [], []
+    brutos = list(ler_brutos(entradas))
+    if prever_disciplina:
+        brutos = atribuir_disciplinas(brutos)
+    for d in brutos:
+        q = limpar_questao(Questao(**{c: str(d.get(c, "") or "") for c in COLUNAS}))
+        if classificar_assunto and not q.Assunto:
+            q.Assunto = classificar(q.Disciplina, q.Enunciado, [getattr(q, f"Alternativa_{l}") for l in LETRAS])
+        err = erros_questao(q)
+        (ruins.append((q, err)) if err else validas.append(q))
     antes = len(validas)
     validas = deduplicar(validas)
     for s in saidas:

@@ -19,6 +19,10 @@ def main(argv=None):
     a.add_argument("--mapa", help="YAML de mapeamento (omita se já estiver nas 13 colunas)")
     a.add_argument("-o", "--saida", required=True)
 
+    a = sub.add_parser("oab", help="importa o dataset aberto eduagarcia/oab_exams (.parquet)")
+    a.add_argument("parquet")
+    a.add_argument("-o", "--saida", required=True)
+
     a = sub.add_parser("baixar-pdfs", help="baixa PDFs de provas/gabaritos a partir de páginas de listagem")
     a.add_argument("config")
 
@@ -32,6 +36,7 @@ def main(argv=None):
     a.add_argument("--rejeitadas", help="CSV com as questões reprovadas e o motivo")
     a.add_argument("--relatorio", help="JSON com estatísticas")
     a.add_argument("--sem-assunto", action="store_true", help="não classificar Assunto automaticamente")
+    a.add_argument("--sem-disciplina", action="store_true", help="não prever Disciplina faltante com o classificador")
     a.add_argument("--bom", action="store_true", help="CSV com BOM (abre acentuado direto no Excel)")
 
     a = sub.add_parser("plano", help="resume o plano de coleta e gera o manifesto das provas prontas")
@@ -52,6 +57,10 @@ def main(argv=None):
         from .fontes.tabular import importar
 
         print(f"{pipeline.salvar_jsonl(importar(args.arquivo, args.mapa), args.saida)} questões -> {args.saida}")
+    elif args.cmd == "oab":
+        from .fontes.oab import importar
+
+        print(f"{pipeline.salvar_jsonl(importar(args.parquet), args.saida)} questões -> {args.saida}")
     elif args.cmd == "baixar-pdfs":
         from .fontes import web
 
@@ -63,7 +72,8 @@ def main(argv=None):
         print(f"{n} questões -> {args.saida}")
     elif args.cmd == "consolidar":
         rel = pipeline.consolidar(args.entradas, args.saida, args.rejeitadas, args.relatorio,
-                                  classificar_assunto=not args.sem_assunto, bom=args.bom)
+                                  classificar_assunto=not args.sem_assunto, bom=args.bom,
+                                  prever_disciplina=not args.sem_disciplina)
         print(json.dumps({k: rel[k] for k in ("lidas", "validas", "rejeitadas", "duplicadas_removidas")},
                          ensure_ascii=False))
     elif args.cmd == "plano":
