@@ -118,3 +118,50 @@ class Classificador:
             suav[i] = (P[ini:fim] * pesos[:, None]).sum(0) / pesos.sum()
         classes = self.modelo.classes_
         return [(classes[k], float(suav[i, k])) for i, k in enumerate(suav.argmax(1))]
+
+
+# Área do cargo -> disciplina (para os blocos de Conhecimentos Específicos de cargos especializados)
+_CARGO_AREA = [
+    (r"m[eé]dic[oa](?! veterin)|medicina(?! veterin)", "Medicina"),
+    (r"enferm", "Enfermagem"),
+    (r"psic[oó]log", "Psicologia"),
+    (r"assistente social|servi[cç]o social", "Serviço Social"),
+    (r"nutri", "Nutrição"),
+    (r"farm[aá]c", "Farmácia"),
+    (r"fisioterap", "Fisioterapia"),
+    (r"odont|dentista|cirurgi[aã]o.dentista", "Odontologia"),
+    (r"veterin", "Medicina Veterinária"),
+    (r"fonoaudi", "Fonoaudiologia"),
+    (r"biom[eé]dic|an[aá]lises cl[ií]nicas|laborat", "Biomedicina e Análises Clínicas"),
+    (r"radiolog", "Radiologia"),
+    (r"engenh", "Engenharia"),
+    (r"arquitet", "Arquitetura e Urbanismo"),
+    (r"tecnologia da informa|\bti\b|sistemas|desenvolvimento|software|suporte|infraestrutura|redes|seguran[cç]a da informa"
+     r"|ci[eê]ncia de dados|banco de dados|inform[aá]tica|programa", "Informática"),
+    (r"cont[aá]bil|contabilidade|contador", "Contabilidade"),
+    (r"auditor", "Auditoria"),
+    (r"econom", "Economia"),
+    (r"estat[ií]st", "Estatística"),
+    (r"arquiv", "Arquivologia"),
+    (r"bibliotec", "Biblioteconomia"),
+    (r"jornal|comunica[cç][aã]o social|publicidade|rela[cç][oõ]es p[uú]blicas", "Comunicação Social"),
+    (r"pedagog", "Pedagogia e Educação"),
+    (r"qu[ií]mic", "Química"), (r"f[ií]sic(?!o)", "Física"), (r"biolog", "Biologia"), (r"geolog", "Geologia"),
+    (r"agronom|agr[ií]col", "Agronomia"),
+    (r"professor.*(portugu[eê]s|l[ií]ngua portuguesa)", "Língua Portuguesa"),
+    (r"professor.*matem[aá]tica", "Matemática"), (r"professor.*hist[oó]ria", "História"),
+    (r"professor.*geografia", "Geografia"), (r"professor.*ingl[eê]s", "Língua Inglesa"),
+    (r"professor.*educa[cç][aã]o f[ií]sica|educa[cç][aã]o f[ií]sica", "Educação Física"),
+]
+_CARGO_AREA = [(re.compile(p, re.I), n) for p, n in _CARGO_AREA]
+GENERICAS_PREVISTAS = {"Legislação Específica", "Administração Pública", "Administração", "Atualidades",
+                       "Pedagogia e Educação", "Ética no Serviço Público"}
+
+
+def disciplina_do_cargo(texto):
+    """'Cargo 6: Médico - Cardiologia' -> 'Medicina'. Vazio se o cargo não indica uma área técnica."""
+    t = texto or ""
+    for pad, nome in _CARGO_AREA:
+        if pad.search(t):
+            return nome
+    return ""

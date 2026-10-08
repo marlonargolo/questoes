@@ -65,7 +65,47 @@ def atribuir_disciplinas(brutos, log=print):
             brutos[i]["_disc_prob"] = round(prob, 3)
             previstas += 1
     log(f"{previstas} disciplinas previstas pelo classificador")
+    log(f"{ajustar_por_cargo(brutos)} disciplinas ajustadas pela área do cargo (conhecimentos específicos)")
     return brutos
+
+
+_CARGOS_CEBRASPE = {}
+
+
+def _nome_cargo_cebraspe(ident, bloco):
+    """Junta ao bloco ('CONHECIMENTOS ESPECIFICOS CARGO 6') o nome do cargo da API do Cebraspe."""
+    import re as _re
+
+    if ident not in _CARGOS_CEBRASPE:
+        try:
+            ev = json.loads(Path(f"dados/cache/cebraspe/{ident}.json").read_text(encoding="utf-8"))
+            _CARGOS_CEBRASPE[ident] = {str(int(c["idArea"])): c["area"] for c in ev.get("eventoCargos") or []
+                                       if str(c.get("idArea", "")).isdigit()}
+        except Exception:
+            _CARGOS_CEBRASPE[ident] = {}
+    m = _re.search(r"\b(?:CARGO|EMPREGO|PERFIL|AREA)S? (\d+)\b", bloco or "")
+    return (bloco or "") + " " + (_CARGOS_CEBRASPE[ident].get(str(int(m.group(1))), "") if m else "")
+
+
+def ajustar_por_cargo(brutos):
+    """Em blocos de conhecimentos específicos de cargo especializado, troca previsões genéricas pela área do cargo."""
+    from .classificador import GENERICAS_PREVISTAS, disciplina_do_cargo
+
+    n = 0
+    for d in brutos:
+        bloco = d.get("_bloco", "")
+        fonte = str(d.get("_fonte", ""))
+        if not bloco or "_disc_prob" not in d:
+            continue
+        if fonte.startswith("cebraspe:"):
+            if "ESPECIFIC" not in bloco.upper():
+                continue
+            bloco = _nome_cargo_cebraspe(fonte.split(":")[1], bloco)
+        area = disciplina_do_cargo(bloco)
+        if area and d["Disciplina"] != area and (d["Disciplina"] in GENERICAS_PREVISTAS or d["_disc_prob"] < 0.5):
+            d["Disciplina"] = area
+            n += 1
+    return n
 
 
 def consolidar(entradas, saidas, rejeitadas=None, relatorio_path=None, classificar_assunto=True, bom=False,
