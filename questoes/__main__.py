@@ -34,6 +34,11 @@ def main(argv=None):
     a.add_argument("--sem-assunto", action="store_true", help="não classificar Assunto automaticamente")
     a.add_argument("--bom", action="store_true", help="CSV com BOM (abre acentuado direto no Excel)")
 
+    a = sub.add_parser("plano", help="resume o plano de coleta e gera o manifesto das provas prontas")
+    a.add_argument("plano", help="planejamento/plano_coleta.csv ou .xlsx")
+    a.add_argument("--manifesto", help="YAML a gerar com as linhas Status=pronto")
+    a.add_argument("--xlsx", help="exporta o plano formatado (abas Plano e Resumo)")
+
     a = sub.add_parser("validar", help="valida um arquivo já nas 13 colunas")
     a.add_argument("arquivo")
 
@@ -61,6 +66,21 @@ def main(argv=None):
                                   classificar_assunto=not args.sem_assunto, bom=args.bom)
         print(json.dumps({k: rel[k] for k in ("lidas", "validas", "rejeitadas", "duplicadas_removidas")},
                          ensure_ascii=False))
+    elif args.cmd == "plano":
+        from . import plano
+
+        linhas = plano.ler_plano(args.plano)
+        pb, _ = plano.resumo(linhas)
+        for (b,), (n, q) in sorted(pb.items(), key=lambda x: -x[1][1]):
+            print(f"{b:12} {n:4} provas  ~{q:6} questões")
+        print(f"{'TOTAL':12} {len(linhas):4} provas  ~{sum(v[1] for v in pb.values()):6} questões")
+        if args.xlsx:
+            plano.exportar_xlsx(linhas, args.xlsx)
+        if args.manifesto:
+            n, pend = plano.gerar_manifesto(linhas, args.manifesto)
+            print(f"{n} provas no manifesto {args.manifesto}")
+            for p_ in pend:
+                print("  pendente:", p_)
     elif args.cmd == "validar":
         from .fontes.tabular import importar
         from .validacao import relatorio

@@ -1,0 +1,130 @@
+ID;Banca;Orgao;Ano;Cargo_Prova;Tipo;Alternativas;Questoes_Estimadas;Confianca;Status;Arquivo_Prova;Arquivo_Gabarito;Faixas_Disciplinas;Observacoes
+1;Cebraspe;ABIN;2018;Agente de Inteligência;certo_errado;2;120;alta;a_coletar;;;;
+2;Cebraspe;ABIN;2018;Oficial de Inteligência;certo_errado;2;120;alta;a_coletar;;;;
+3;Cebraspe;Banco Central do Brasil;2024;Analista;certo_errado;2;120;verificar;a_coletar;;;;conferir tipo (C/E ou múltipla escolha) e nº de itens
+4;Cebraspe;Banco Central do Brasil;2024;Técnico;certo_errado;2;120;verificar;a_coletar;;;;conferir tipo (C/E ou múltipla escolha) e nº de itens
+5;Cebraspe;Caixa Econômica Federal;2014;Técnico Bancário Novo;certo_errado;2;120;alta;a_coletar;;;;
+6;Cebraspe;Câmara dos Deputados;2014;Analista Legislativo;certo_errado;2;120;alta;a_coletar;;;;
+7;Cebraspe;Depen;2015;Agente Penitenciário Federal;certo_errado;2;120;alta;a_coletar;;;;
+8;Cebraspe;Depen;2020;Agente Federal de Execução Penal;certo_errado;2;120;alta;a_coletar;;;;
+9;Cebraspe;EBSERH;2018;Analista Administrativo;certo_errado;2;120;verificar;a_coletar;;;;
+10;Cebraspe;EBSERH;2018;Assistente Administrativo;certo_errado;2;120;verificar;a_coletar;;;;
+11;Cebraspe;INSS;2016;Analista do Seguro Social;certo_errado;2;120;alta;a_coletar;;;;
+12;Cebraspe;INSS;2016;Técnico do Seguro Social;certo_errado;2;120;alta;a_coletar;;;;
+13;Cebraspe;INSS;2022;Técnico do Seguro Social;certo_errado;2;120;alta;a_coletar;;;;
+14;Cebraspe;MPU;2018;Analista do MPU - Direito;certo_errado;2;120;alta;a_coletar;;;;
+15;Cebraspe;MPU;2018;Técnico do MPU - Administração;certo_errado;2;120;alta;a_coletar;;;;
+16;Cebraspe;PC-PE;2016;Agente de Polícia;verificar;5;100;verificar;a_coletar;;;;conferir tipo
+17;Cebraspe;PC-PE;2016;Escrivão de Polícia;verificar;5;100;verificar;a_coletar;;;;conferir tipo
+18;Cebraspe;PCDF;2021;Agente de Polícia;certo_errado;2;120;verificar;a_coletar;;;;
+19;Cebraspe;Polícia Federal;2014;Agente Administrativo;certo_errado;2;120;alta;a_coletar;;;;
+20;Cebraspe;Polícia Federal;2018;Agente de Polícia Federal;certo_errado;2;120;alta;a_coletar;;;;
+21;Cebraspe;Polícia Federal;2018;Delegado de Polícia Federal;certo_errado;2;120;alta;a_coletar;;;;
+22;Cebraspe;Polícia Federal;2018;Escrivão de Polícia Federal;certo_errado;2;120;alta;a_coletar;;;;
+23;Cebraspe;Polícia Federal;2018;Papiloscopista Policial Federal;certo_errado;2;120;alta;a_coletar;;;;
+24;Cebraspe;Polícia Federal;2018;Perito Criminal Federal;certo_errado;2;120;alta;a_coletar;;;;
+25;Cebraspe;Polícia Federal;2021;Agente de Polícia Federal;certo_errado;2;120;alta;a_coletar;;;;
+26;Cebraspe;Polícia Federal;2021;Delegado de Polícia Federal;certo_errado;2;120;alta;a_coletar;;;;
+27;Cebraspe;Polícia Federal;2021;Escrivão de Polícia Federal;certo_errado;2;120;alta;a_coletar;;;;
+28;Cebraspe;Polícia Federal;2021;Papiloscopista Policial Federal;certo_errado;2;120;alta;a_coletar;;;;
+29;Cebraspe;Polícia Rodoviária Federal;2019;Policial Rodoviário Federal;certo_errado;2;120;alta;a_coletar;;;;
+30;Cebraspe;Polícia Rodoviária Federal;2021;Policial Rodoviário Federal;certo_errado;2;120;alta;a_coletar;;;;
+31;Cebraspe;SEFAZ-DF;2020;Auditor Fiscal;certo_errado;2;120;verificar;a_coletar;;;;
+32;Cebraspe;SEFAZ-RS;2019;Auditor-Fiscal da Receita Estadual;verificar;5;100;verificar;a_coletar;;;;conferir ano (edital 2018) e tipo
+33;Cebraspe;SERPRO;2021;Analista;certo_errado;2;120;verificar;a_coletar;;;;
+34;Cebraspe;STJ;2018;Analista Judiciário - Área Judiciária;certo_errado;2;120;alta;a_coletar;;;;
+35;Cebraspe;STJ;2018;Técnico Judiciário - Área Administrativa;certo_errado;2;120;alta;a_coletar;;;;
+36;Cebraspe;STM;2018;Analista Judiciário - Área Judiciária;certo_errado;2;120;alta;a_coletar;;;;
+37;Cebraspe;STM;2018;Técnico Judiciário - Área Administrativa;certo_errado;2;120;alta;a_coletar;;;;
+38;Cebraspe;TCU;2015;Auditor Federal de Controle Externo;certo_errado;2;120;alta;a_coletar;;;;conferir nº de itens por cargo
+39;Cebraspe;TCU;2015;Técnico Federal de Controle Externo;certo_errado;2;120;alta;a_coletar;;;;conferir nº de itens por cargo
+40;Cebraspe;TRF 1ª Região;2017;Analista Judiciário - Área Judiciária;certo_errado;2;120;alta;a_coletar;;;;
+41;Cebraspe;TRF 1ª Região;2017;Técnico Judiciário - Área Administrativa;certo_errado;2;120;alta;a_coletar;;;;
+42;Cebraspe;TSE (Concurso Unificado da Justiça Eleitoral);2024;Analista Judiciário - Área Judiciária;verificar;5;100;verificar;a_coletar;;;;conferir tipo e nº de questões
+43;Cebraspe;TSE (Concurso Unificado da Justiça Eleitoral);2024;Técnico Judiciário - Área Administrativa;verificar;5;100;verificar;a_coletar;;;;conferir tipo e nº de questões
+44;Cesgranrio;Banco do Brasil;2018;Escriturário - Agente Comercial;multipla_escolha;5;70;alta;a_coletar;;;;conferir nº de questões
+45;Cesgranrio;Banco do Brasil;2021;Escriturário - Agente Comercial;multipla_escolha;5;70;alta;a_coletar;;;;conferir nº de questões
+46;Cesgranrio;Banco do Brasil;2023;Escriturário - Agente Comercial;multipla_escolha;5;70;alta;a_coletar;;;;conferir nº de questões
+47;Cesgranrio;Caixa Econômica Federal;2024;Técnico Bancário Novo;multipla_escolha;5;60;alta;a_coletar;;;;conferir nº de questões
+48;Cesgranrio;Concurso Nacional Unificado (CNU);2024;Bloco 1;multipla_escolha;5;90;alta;a_coletar;;;;"prova objetiva geral + específica do bloco; conferir nº de questões"
+49;Cesgranrio;Concurso Nacional Unificado (CNU);2024;Bloco 2;multipla_escolha;5;90;alta;a_coletar;;;;"prova objetiva geral + específica do bloco; conferir nº de questões"
+50;Cesgranrio;Concurso Nacional Unificado (CNU);2024;Bloco 3;multipla_escolha;5;90;alta;a_coletar;;;;"prova objetiva geral + específica do bloco; conferir nº de questões"
+51;Cesgranrio;Concurso Nacional Unificado (CNU);2024;Bloco 4;multipla_escolha;5;90;alta;a_coletar;;;;"prova objetiva geral + específica do bloco; conferir nº de questões"
+52;Cesgranrio;Concurso Nacional Unificado (CNU);2024;Bloco 5;multipla_escolha;5;90;alta;a_coletar;;;;"prova objetiva geral + específica do bloco; conferir nº de questões"
+53;Cesgranrio;Concurso Nacional Unificado (CNU);2024;Bloco 6;multipla_escolha;5;90;alta;a_coletar;;;;"prova objetiva geral + específica do bloco; conferir nº de questões"
+54;Cesgranrio;Concurso Nacional Unificado (CNU);2024;Bloco 7;multipla_escolha;5;90;alta;a_coletar;;;;"prova objetiva geral + específica do bloco; conferir nº de questões"
+55;Cesgranrio;Concurso Nacional Unificado (CNU);2024;Bloco 8;multipla_escolha;5;90;alta;a_coletar;;;;"prova objetiva geral + específica do bloco; conferir nº de questões"
+56;Cesgranrio;Concurso Nacional Unificado (CNU);2025;Blocos (várias áreas);multipla_escolha;5;90;verificar;a_coletar;;;;
+57;Cesgranrio;Petrobras;2021;Nível Superior (várias ênfases);multipla_escolha;5;70;verificar;a_coletar;;;;"uma prova por ênfase; conferir quais"
+58;Cesgranrio;Petrobras;2021;Nível Técnico (várias ênfases);multipla_escolha;5;70;verificar;a_coletar;;;;"uma prova por ênfase; conferir quais"
+59;Cesgranrio;Petrobras;2023;Nível Superior (várias ênfases);multipla_escolha;5;70;verificar;a_coletar;;;;"uma prova por ênfase; conferir quais"
+60;Cesgranrio;Petrobras;2023;Nível Técnico (várias ênfases);multipla_escolha;5;70;verificar;a_coletar;;;;"uma prova por ênfase; conferir quais"
+61;Cesgranrio;Petrobras;2024;Nível Superior (várias ênfases);multipla_escolha;5;70;verificar;a_coletar;;;;"uma prova por ênfase; conferir quais"
+62;Cesgranrio;Petrobras;2024;Nível Técnico (várias ênfases);multipla_escolha;5;70;verificar;a_coletar;;;;"uma prova por ênfase; conferir quais"
+63;Cesgranrio;Transpetro;2018;Nível Superior;multipla_escolha;5;60;verificar;a_coletar;;;;
+64;Cesgranrio;Transpetro;2018;Nível Técnico;multipla_escolha;5;60;verificar;a_coletar;;;;
+65;FCC;SABESP;2018;Analista de Gestão;multipla_escolha;5;60;verificar;a_coletar;;;;
+66;FCC;SABESP;2018;Técnico em Gestão;multipla_escolha;5;60;verificar;a_coletar;;;;
+67;FCC;SEF-SC;2018;Auditor Fiscal da Receita Estadual;multipla_escolha;5;80;verificar;a_coletar;;;;
+68;FCC;SEFAZ-BA;2019;Auditor Fiscal;multipla_escolha;5;80;alta;a_coletar;;;;conferir nº de questões
+69;FCC;SEFAZ-PE;2014;Auditor Fiscal do Tesouro Estadual;multipla_escolha;5;80;alta;a_coletar;;;;conferir nº de questões
+70;FCC;SEFAZ-SP;2013;Agente Fiscal de Rendas;multipla_escolha;5;80;alta;a_coletar;;;;conferir nº de questões
+71;FCC;TRF 3ª Região;2016;Analista Judiciário - Área Judiciária;multipla_escolha;5;60;verificar;a_coletar;;;;
+72;FCC;TRF 3ª Região;2016;Técnico Judiciário - Área Administrativa;multipla_escolha;5;60;verificar;a_coletar;;;;
+73;FCC;TRF 4ª Região;2019;Analista Judiciário - Área Judiciária;multipla_escolha;5;60;verificar;a_coletar;;;;
+74;FCC;TRF 4ª Região;2019;Técnico Judiciário - Área Administrativa;multipla_escolha;5;60;verificar;a_coletar;;;;
+75;FCC;TRT 15ª Região (Campinas);2018;Analista Judiciário - Área Judiciária;multipla_escolha;5;60;verificar;a_coletar;;;;
+76;FCC;TRT 15ª Região (Campinas);2018;Técnico Judiciário - Área Administrativa;multipla_escolha;5;60;verificar;a_coletar;;;;
+77;FCC;TRT 2ª Região (SP);2018;Analista Judiciário - Área Judiciária;multipla_escolha;5;60;verificar;a_coletar;;;;
+78;FCC;TRT 2ª Região (SP);2018;Técnico Judiciário - Área Administrativa;multipla_escolha;5;60;verificar;a_coletar;;;;
+79;FCC;TRT 6ª Região (PE);2018;Analista Judiciário - Área Judiciária;multipla_escolha;5;60;verificar;a_coletar;;;;
+80;FCC;TRT 6ª Região (PE);2018;Técnico Judiciário - Área Administrativa;multipla_escolha;5;60;verificar;a_coletar;;;;
+81;FGV;CGU;2022;Auditor Federal de Finanças e Controle;multipla_escolha;5;100;alta;a_coletar;;;;conferir nº de questões
+82;FGV;OAB (Exame de Ordem Unificado);2016;1ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+83;FGV;OAB (Exame de Ordem Unificado);2016;2ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+84;FGV;OAB (Exame de Ordem Unificado);2016;3ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+85;FGV;OAB (Exame de Ordem Unificado);2017;1ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+86;FGV;OAB (Exame de Ordem Unificado);2017;2ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+87;FGV;OAB (Exame de Ordem Unificado);2017;3ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+88;FGV;OAB (Exame de Ordem Unificado);2018;1ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+89;FGV;OAB (Exame de Ordem Unificado);2018;2ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+90;FGV;OAB (Exame de Ordem Unificado);2018;3ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+91;FGV;OAB (Exame de Ordem Unificado);2019;1ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+92;FGV;OAB (Exame de Ordem Unificado);2019;2ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+93;FGV;OAB (Exame de Ordem Unificado);2019;3ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+94;FGV;OAB (Exame de Ordem Unificado);2020;1ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+95;FGV;OAB (Exame de Ordem Unificado);2020;2ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+96;FGV;OAB (Exame de Ordem Unificado);2020;3ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+97;FGV;OAB (Exame de Ordem Unificado);2021;1ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+98;FGV;OAB (Exame de Ordem Unificado);2021;2ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+99;FGV;OAB (Exame de Ordem Unificado);2021;3ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+100;FGV;OAB (Exame de Ordem Unificado);2022;1ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+101;FGV;OAB (Exame de Ordem Unificado);2022;2ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+102;FGV;OAB (Exame de Ordem Unificado);2022;3ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+103;FGV;OAB (Exame de Ordem Unificado);2023;1ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+104;FGV;OAB (Exame de Ordem Unificado);2023;2ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+105;FGV;OAB (Exame de Ordem Unificado);2023;3ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+106;FGV;OAB (Exame de Ordem Unificado);2024;1ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+107;FGV;OAB (Exame de Ordem Unificado);2024;2ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+108;FGV;OAB (Exame de Ordem Unificado);2024;3ª aplicação do ano;multipla_escolha;4;80;alta;a_coletar;;;;"4 alternativas (A-D); conferir quantas aplicações houve no ano"
+109;FGV;Receita Federal;2022;Analista-Tributário da Receita Federal;multipla_escolha;5;100;alta;a_coletar;;;;
+110;FGV;Receita Federal;2022;Auditor-Fiscal da Receita Federal;multipla_escolha;5;100;alta;a_coletar;;;;
+111;FGV;SEF-MG;2023;Auditor Fiscal da Receita Estadual;multipla_escolha;5;80;verificar;a_coletar;;;;
+112;FGV;SEFAZ-AM;2022;Auditor Fiscal de Tributos Estaduais;multipla_escolha;5;80;alta;a_coletar;;;;conferir nº de questões
+113;FGV;SEFAZ-ES;2021;Auditor Fiscal da Receita Estadual;multipla_escolha;5;80;verificar;a_coletar;;;;
+114;FGV;Senado Federal;2022;Analista Legislativo;multipla_escolha;5;80;alta;a_coletar;;;;conferir nº de questões
+115;FGV;Senado Federal;2022;Policial Legislativo;multipla_escolha;5;80;alta;a_coletar;;;;conferir nº de questões
+116;FGV;Senado Federal;2022;Técnico Legislativo;multipla_escolha;5;80;alta;a_coletar;;;;conferir nº de questões
+117;FGV;TCU;2022;Auditor Federal de Controle Externo;multipla_escolha;5;100;alta;a_coletar;;;;conferir nº de questões
+118;IBFC;Correios;2024;Agente de Correios;multipla_escolha;5;60;verificar;a_coletar;;;;
+119;IBFC;Correios;2024;Analista de Correios;multipla_escolha;5;60;verificar;a_coletar;;;;
+120;IBFC;EBSERH;2023;Analista Administrativo;multipla_escolha;5;50;verificar;a_coletar;;;;
+121;IBFC;EBSERH;2023;Assistente Administrativo;multipla_escolha;5;50;verificar;a_coletar;;;;
+122;Quadrix;SEEDF;2017;Professor de Educação Básica;verificar;5;120;verificar;a_coletar;;;;conferir tipo
+123;Vunesp;PC-SP;2018;Escrivão de Polícia;multipla_escolha;5;100;verificar;a_coletar;;;;
+124;Vunesp;PC-SP;2018;Investigador de Polícia;multipla_escolha;5;100;verificar;a_coletar;;;;
+125;Vunesp;PM-SP;2019;Soldado PM de 2ª Classe;multipla_escolha;4;60;verificar;a_coletar;;;;conferir anos e nº de alternativas
+126;Vunesp;PM-SP;2022;Soldado PM de 2ª Classe;multipla_escolha;4;60;verificar;a_coletar;;;;conferir anos e nº de alternativas
+127;Vunesp;TJ-SP;2017;Escrevente Técnico Judiciário;multipla_escolha;5;100;alta;a_coletar;;;;
+128;Vunesp;TJ-SP;2021;Escrevente Técnico Judiciário;multipla_escolha;5;100;alta;a_coletar;;;;
+129;Vunesp;TJ-SP;2023;Escrevente Técnico Judiciário;multipla_escolha;5;100;alta;a_coletar;;;;

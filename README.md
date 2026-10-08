@@ -77,6 +77,28 @@ duplo clique. Deixe sem BOM se o seu sistema lê UTF-8 puro.
 > para copiá-los. A coluna `Comentario_Professor` deve vir de material próprio
 > ou licenciado.
 
+## Plano de coleta (provas por banca e ano)
+
+`planejamento/plano_coleta.csv` (e a versão formatada `plano_coleta.xlsx`, com
+as abas *Plano* e *Resumo*) lista as provas-alvo, uma linha por cargo:
+banca, órgão, ano, cargo, tipo, nº de alternativas, questões estimadas,
+confiança e status. As linhas com `Confianca=verificar` foram montadas de
+memória, sem acesso aos sites das bancas. Confirme o ano, o tipo e o nº de
+questões quando baixar o PDF.
+
+Para cada prova:
+
+1. baixe o caderno e o gabarito **definitivo** e preencha `Arquivo_Prova` e `Arquivo_Gabarito`;
+2. preencha `Faixas_Disciplinas`, ex.: `1-13:Língua Portuguesa | 14-25:Direito Administrativo`;
+3. mude `Status` para `pronto` e gere o manifesto:
+
+```bash
+python -m questoes plano planejamento/plano_coleta.csv \
+    --manifesto dados/manifesto.yaml --xlsx planejamento/plano_coleta.xlsx
+```
+
+O comando mostra o total por banca e lista as linhas `pronto` que ainda têm pendência.
+
 ## Disciplina e Assunto
 
 * **Disciplina:** vem das faixas declaradas no manifesto, da fonte ou de valores fixos.
