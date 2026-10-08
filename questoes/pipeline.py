@@ -43,6 +43,9 @@ def atribuir_disciplinas(brutos, log=print):
     from .classificador import Classificador, canonica
 
     for d in brutos:
+        # cabeçalhos só são confiáveis nos cadernos da FGV (e a OAB já vem rotulada); no Cebraspe são falsos positivos
+        if str(d.get("_fonte", "")).startswith("cebraspe:"):
+            d["Disciplina"] = ""
         d["Disciplina"] = canonica(d.get("Disciplina", ""))
     clf = Classificador()
     rotulos = {d["Disciplina"] for d in brutos if d["Disciplina"]}

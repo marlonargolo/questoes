@@ -74,8 +74,7 @@ def canonica(disciplina):
     for pad, nome in _CANON:
         if pad.search(d):
             return nome
-    d = re.sub(r"^(No[cç][oõ]es|Conhecimentos|Fundamentos|T[oó]picos) (de|sobre|em) ", "", d, flags=re.I)
-    return d[:1].upper() + d[1:]
+    return ""  # rótulo fora da lista canônica: a disciplina será prevista pelo classificador
 
 
 def _texto(q):
