@@ -87,6 +87,9 @@ def _nome_cargo_cebraspe(ident, bloco):
     return (bloco or "") + " " + (_CARGOS_CEBRASPE[ident].get(str(int(m.group(1))), "") if m else "")
 
 
+BASICAS = {"Língua Portuguesa", "Raciocínio Lógico", "Matemática", "Língua Inglesa", "Língua Espanhola", "Redação Oficial"}
+
+
 def ajustar_por_cargo(brutos):
     """Em blocos de conhecimentos específicos de cargo especializado, troca previsões genéricas pela área do cargo."""
     from .classificador import GENERICAS_PREVISTAS, disciplina_do_cargo
@@ -102,7 +105,11 @@ def ajustar_por_cargo(brutos):
                 continue
             bloco = _nome_cargo_cebraspe(fonte.split(":")[1], bloco)
         area = disciplina_do_cargo(bloco)
-        if area and d["Disciplina"] != area and (d["Disciplina"] in GENERICAS_PREVISTAS or d["_disc_prob"] < 0.5):
+        if not area or d["Disciplina"] == area or d["Disciplina"] in BASICAS:
+            continue
+        # na FGV o caderno mistura gerais e específicos: só troca categorias genéricas
+        pouca_confianca = d["_disc_prob"] < 0.5 and fonte.startswith("cebraspe:")
+        if d["Disciplina"] in GENERICAS_PREVISTAS or pouca_confianca:
             d["Disciplina"] = area
             n += 1
     return n
