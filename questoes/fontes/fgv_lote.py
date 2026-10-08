@@ -50,14 +50,18 @@ def processar(slug):
     logs, linhas = [], []
     if cadernos and gabaritos:
         with tempfile.TemporaryDirectory(dir="dados") as tmp:
-            secoes = {}
+            secoes, vistos = {}, {}
             for i, (_, url, _) in enumerate(gabaritos):
                 arq = Path(tmp) / f"g{i}.pdf"
                 if baixar(url, arq):
                     try:
-                        secoes.update(parse_gabarito_secoes(_ler_texto(arq)))
+                        for rot, gab in parse_gabarito_secoes(_ler_texto(arq)).items():
+                            vistos[rot] = vistos.get(rot, 0) + 1
+                            secoes[rot] = gab
                     except Exception:
                         pass
+            # rótulo presente em mais de um gabarito (ex.: várias edições do mesmo exame) é ambíguo
+            secoes = {r: g for r, g in secoes.items() if vistos[r] == 1}
             for cargo, url, ano in cadernos:
                 gab = casar_secao(cargo, secoes)
                 st = {"slug": slug, "cargo": cargo, "url": url}

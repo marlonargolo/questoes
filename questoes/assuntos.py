@@ -106,3 +106,61 @@ def classificar(disciplina, enunciado, alternativas=()):
         if p > pontos:
             melhor, pontos = assunto, p
     return melhor
+
+
+# --- Assunto a partir do comando da questão ("Acerca de X, julgue os itens") ---
+_ART = r"(?:d[aeo]s?|à|às|ao|aos|a|o|os|as|de|em|no|na|nos|nas)\s+"
+_CMD_INICIO = re.compile(
+    r"(?:^|\n|\.\s)(?:Ainda\s+)?(?:Acerca|A respeito|Com relação|Com referência|Em relação|No que (?:se refere|concerne|diz respeito)|"
+    r"Quanto|Relativamente|À luz|No tocante|Sobre|No âmbito|Considerando o disposto|Com base n[ao]s?)\s+(?:" + _ART + r")?"
+    r"(?P<t>[^\n]{3,140}?(?:\n[^\n]{0,80}?)?),\s*(?:julgue|assinale|é correto|é incorreto|analise|indique|considere)",
+    re.I)
+_CMD_FIM = re.compile(
+    r"julgue\s+(?:o item|os (?:próximos |seguintes )?itens)(?:\s+(?:a seguir|seguintes|subsequentes|que se seguem))?,\s*"
+    r"(?:relativos?|referentes?|acerca|a respeito|concernentes?|pertinentes?|com relação|no que se refere|quanto|sobre)"
+    r"\s*(?:a|à|ao|aos|às|de|do|da|dos|das)?\s+(?P<t>[^\n]{3,140}?(?:\n[^\n]{0,80}?)?)\.\s*(?:\n|$)",
+    re.I)
+_GENERICO = re.compile(r"\b(texto|situação|hipotétic|informações|caso clínico|figura|tabela|quadro|gráfico|trecho|fragmento|"
+                       r"exposto|apresentad|anterior|acima|a seguir|seguinte|desse|dessa|deste|desta|esse|essa|referid)\w*",
+                       re.I)
+
+
+def assunto_do_comando(enunciado):
+    candidatos = [m.group("t") for m in _CMD_INICIO.finditer(enunciado or "")]
+    candidatos += [m.group("t") for m in _CMD_FIM.finditer(enunciado or "")]
+    for t in reversed(candidatos):
+        t = re.sub(r"\s+", " ", t).strip(" ,;:")
+        t = re.sub(r"^(?:" + _ART + r")", "", t, flags=re.I)
+        t = re.sub(r"\s+e\s+(?:d[aeo]s?|à|às|ao|aos|a|o|os|as|de)\s+", " e ", t)
+        if _GENERICO.search(t) or not (3 <= len(t) <= 90) or len(t.split()) > 12:
+            continue
+        return t[:1].upper() + t[1:]
+    return ""
+
+
+def propagar_assuntos(questoes, limiar=0.45):
+    """Para questões sem Assunto, copia o da questão mais parecida (TF-IDF, mesma disciplina) se cos >= limiar."""
+    from collections import defaultdict
+
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.neighbors import NearestNeighbors
+
+    grupos = defaultdict(list)
+    for i, q in enumerate(questoes):
+        grupos[q.Disciplina].append(i)
+    copiados = 0
+    for idxs in grupos.values():
+        com = [i for i in idxs if questoes[i].Assunto]
+        sem = [i for i in idxs if not questoes[i].Assunto]
+        if len(com) < 5 or not sem:
+            continue
+        texto = lambda q: q.Enunciado[-1500:] + " " + " ".join(getattr(q, f"Alternativa_{l}") for l in "ABCDE")
+        vet = TfidfVectorizer(ngram_range=(1, 2), min_df=1, sublinear_tf=True, strip_accents="unicode", max_features=300000)
+        Xc = vet.fit_transform([texto(questoes[i]) for i in com])
+        nn = NearestNeighbors(n_neighbors=1, metric="cosine").fit(Xc)
+        dist, viz = nn.kneighbors(vet.transform([texto(questoes[i]) for i in sem]))
+        for i, d, v in zip(sem, dist[:, 0], viz[:, 0]):
+            if 1 - d >= limiar:
+                questoes[i].Assunto = questoes[com[v]].Assunto
+                copiados += 1
+    return copiados

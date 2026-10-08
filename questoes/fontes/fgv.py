@@ -38,22 +38,26 @@ def extrair_pagina(conteudo):
         bloco = par.group(0)
         data = re.search(r'datetime="(\d{4})-', bloco)
         ano = int(data.group(1)) if data else None
-        secao, cargo = "", ""
+        secao, niveis = "", {}
         for p in re.finditer(r"<p([^>]*)>(.*?)</p>", bloco, re.S):
             attrs, corpo = p.group(1), p.group(2)
             txt = _texto(corpo)
+            nivel = int(re.search(r"Indent(\d)", attrs).group(1)) if re.search(r"Indent\d", attrs) else 0
             links = re.findall(r'href="([^"]+\.pdf)"[^>]*>(.*?)</a>', corpo, re.S)
             if links:
+                cargo = next((niveis[n] for n in sorted(niveis, reverse=True) if n < nivel), "")
+                cargo = re.sub(r"^(Curso|Cargo|Emprego|Especialidade)\s*:\s*", "", cargo)
                 for url, rot in links:
                     rot = _texto(rot)
                     if re.fullmatch(r"(?i)tipo\s*0?1", rot) and re.search(r"objetiva", secao, re.I):
                         cadernos.append((cargo, url, ano))
                     elif re.search(r"(?i)gabarito.*definitivo", rot) and not re.search(r"(?i)discursiv|preliminar|reaplica", rot):
                         gabaritos.append((rot, url, ano))
-            elif "Indent1" in attrs:
-                cargo = txt
-            elif txt and "Indent" not in attrs:
-                secao, cargo = txt, ""
+            elif nivel and txt:
+                niveis = {n: v for n, v in niveis.items() if n < nivel}
+                niveis[nivel] = txt
+            elif txt and not nivel:
+                secao, niveis = txt, {}
     return orgao, cadernos, gabaritos
 
 

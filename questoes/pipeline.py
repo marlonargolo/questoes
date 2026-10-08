@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 
-from .assuntos import classificar
+from .assuntos import assunto_do_comando, classificar, propagar_assuntos
 from .dedup import deduplicar
 from .exportacao import exportar
 from .limpeza import limpar_questao
@@ -74,11 +74,14 @@ def consolidar(entradas, saidas, rejeitadas=None, relatorio_path=None, classific
     for d in brutos:
         q = limpar_questao(Questao(**{c: str(d.get(c, "") or "") for c in COLUNAS}))
         if classificar_assunto and not q.Assunto:
-            q.Assunto = classificar(q.Disciplina, q.Enunciado, [getattr(q, f"Alternativa_{l}") for l in LETRAS])
+            q.Assunto = assunto_do_comando(q.Enunciado) or classificar(
+                q.Disciplina, q.Enunciado, [getattr(q, f"Alternativa_{l}") for l in LETRAS])
         err = erros_questao(q)
         (ruins.append((q, err)) if err else validas.append(q))
     antes = len(validas)
     validas = deduplicar(validas)
+    if classificar_assunto and len(validas) > 50:
+        print(f"{propagar_assuntos(validas)} assuntos propagados por similaridade")
     for s in saidas:
         exportar(validas, s, bom=bom)
     if rejeitadas:

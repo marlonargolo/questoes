@@ -57,6 +57,25 @@ python -m questoes validar saida/banco_questoes.csv
 `--bom` grava o CSV com BOM, para que o Excel abra os acentos direto com
 duplo clique. Deixe sem BOM se o seu sistema lê UTF-8 puro.
 
+## Coleta automática (fontes ativas)
+
+| Fonte | Comando | Observação |
+|---|---|---|
+| Cebraspe (API pública `apis.cebraspe.org.br` + CDN) | `bash -c 'xargs -P 4 -n 1 scripts/fetch_cebraspe_evento.sh < dados/cache/cebraspe_ids.txt'` e depois `python -m questoes.fontes.cebraspe_lote` | casa "Prova objetiva" com "Gabarito definitivo" de cada cargo; C/E e múltipla escolha |
+| FGV Conhecimento (`conhecimento.fgv.br/concursos/<slug>`) | `xargs -P 3 -n 1 scripts/fetch_fgv_concurso.sh < dados/cache/fgv_slugs.txt` e depois `python -m questoes.fontes.fgv_lote` | caderno Tipo 1 de cada cargo + seção "TIPO 1" do gabarito definitivo |
+| OAB – 1ª fase (dataset `eduagarcia/oab_exams`) | `python -m questoes oab oab_exams.parquet -o dados/jsonl/oab.jsonl` | 2010-01 = Cespe; demais = FGV |
+
+Os coletores se identificam como `questoes-bot`, respeitam o `robots.txt` e esperam entre as requisições.
+**Não** são coletados: PCI Concursos (o robots proíbe PDFs), FCC (o robots proíbe `/concursos/` e PDFs),
+Vunesp, Cesgranrio e IBFC (os servidores bloqueiam robôs).
+
+Na consolidação:
+* **Disciplina**: o cabeçalho do caderno (FGV) ou a matéria da OAB, normalizados para nomes canônicos; quando falta
+  (caso do Cebraspe), um classificador TF-IDF + regressão logística, treinado com esses rótulos, prevê a matéria,
+  suavizando pelos itens vizinhos do mesmo caderno;
+* **Assunto**: tirado do comando da questão ("Acerca de X, julgue…", "Com relação a X, assinale…"); senão, vem das
+  palavras-chave ou do assunto da questão mais parecida da mesma disciplina.
+
 ## Fontes e como chegar a ~100 mil questões
 
 1. **Provas oficiais em PDF (fonte principal).** As bancas e os órgãos publicam o
