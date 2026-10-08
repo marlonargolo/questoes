@@ -80,11 +80,18 @@ duplo clique. Deixe sem BOM se o seu sistema lê UTF-8 puro.
 ## Plano de coleta (provas por banca e ano)
 
 `planejamento/plano_coleta.csv` (e a versão formatada `plano_coleta.xlsx`, com
-as abas *Plano* e *Resumo*) lista as provas-alvo, uma linha por cargo:
-banca, órgão, ano, cargo, tipo, nº de alternativas, questões estimadas,
-confiança e status. As linhas com `Confianca=verificar` foram montadas de
-memória, sem acesso aos sites das bancas. Confirme o ano, o tipo e o nº de
-questões quando baixar o PDF.
+as abas *Plano* e *Resumo*) lista cerca de 1.000 provas-alvo (~83 mil questões
+estimadas), uma linha por caderno (cargo/especialidade): banca, órgão, ano,
+cargo, tipo, nº de alternativas, questões estimadas, confiança e status. A
+lista é gerada por `planejamento/gerar_plano.py`: edite o script e rode-o de
+novo para incluir ou corrigir concursos.
+
+`Confianca` indica o quanto cada linha foi checada:
+
+* `confirmada`: checada por busca web (a observação traz o dado conferido);
+* `alta`: concurso conhecido; falta conferir o nome exato do cargo e o nº de questões;
+* `verificar`: montada de memória. Antes de baixar, confirme se o caderno existe
+  e confira banca, ano, cargo e tipo. Descarte as linhas que não se confirmarem.
 
 Para cada prova:
 

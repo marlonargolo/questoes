@@ -72,8 +72,8 @@ def main(argv=None):
         linhas = plano.ler_plano(args.plano)
         pb, _ = plano.resumo(linhas)
         for (b,), (n, q) in sorted(pb.items(), key=lambda x: -x[1][1]):
-            print(f"{b:12} {n:4} provas  ~{q:6} questões")
-        print(f"{'TOTAL':12} {len(linhas):4} provas  ~{sum(v[1] for v in pb.values()):6} questões")
+            print(f"{b:30} {n:4} provas  ~{q:6} questões")
+        print(f"{'TOTAL':30} {len(linhas):4} provas  ~{sum(v[1] for v in pb.values()):6} questões")
         if args.xlsx:
             plano.exportar_xlsx(linhas, args.xlsx)
         if args.manifesto:
